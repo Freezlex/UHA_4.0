@@ -1,4 +1,4 @@
-function createAlbum(album, index){
+function createAlbum(album, index) {
     const albumCard = document.createElement("div");
     albumCard.className = "badge";
 
@@ -40,15 +40,15 @@ function createAlbum(album, index){
     return albumCard;
 }
 
-function moreInfoElt(parent, groupe){
+function moreInfoElt(parent, groupe) {
     let groupeNameElt = groupe.nom.replace(/ /gi, "_");
 
-    if(document.getElementById(groupeNameElt) != undefined){
+    if (document.getElementById(groupeNameElt) != undefined) {
         parent.removeChild(document.getElementById(groupeNameElt));
-    }else{
+    } else {
         const descriptionElt = document.createElement("section");
         descriptionElt.setAttribute("id", groupeNameElt);
-        
+
         const origineElt = document.createElement("h2");
         origineElt.className = "bdg-title";
         origineElt.textContent = "Origine";
@@ -74,7 +74,7 @@ function moreInfoElt(parent, groupe){
         titreGElt.textContent = "Genres musicaux du groupe";
         descriptionElt.appendChild(titreGElt);
 
-        groupe.genre.forEach(function(genre){
+        groupe.genre.forEach(function (genre) {
             const genreElt = document.createElement("p");
             genreElt.className = "DescriptionGroupe"
             genreElt.textContent = genre;
@@ -83,12 +83,12 @@ function moreInfoElt(parent, groupe){
 
         const divAlbums = document.createElement("div");
         divAlbums.className = "badges";
-        
+
         ajaxGet("http://145.239.32.254:8081/music/albums", function (albums) {
             let albumElt = JSON.parse(albums);
-            albumElt.forEach(function(album, index){
-                if(album.artiste === groupe.id){
-                    
+            albumElt.forEach(function (album, index) {
+                if (album.artiste === groupe.id) {
+
 
                     const albumCard = createAlbum(album, index);
                     divAlbums.appendChild(albumCard);
@@ -101,7 +101,7 @@ function moreInfoElt(parent, groupe){
         parent.appendChild(descriptionElt);
     }
 
-    
+
 }
 
 function createElts(groupe) {
@@ -116,10 +116,9 @@ function createElts(groupe) {
     desBages.className = "Desc-Badge";
     linkElt.appendChild(desBages);
 
-    
 
     const ppImageElt = document.createElement("img");
-    ppImageElt.setAttribute("src", "../data/Images/"+groupe.nom.replace(/ /gi, "_")+".jpg");
+    ppImageElt.setAttribute("src", "../data/Images/" + groupe.nom.replace(/ /gi, "_") + ".jpg");
     ppImageElt.setAttribute("alt", groupe.nom);
     ppImageElt.className = "Groupe";
     desBages.appendChild(ppImageElt);
@@ -134,7 +133,7 @@ function createElts(groupe) {
     pElt.className = "moreInfo";
     desBages.appendChild(pElt);
 
-    desBages.addEventListener("click", function (e){
+    desBages.addEventListener("click", function (e) {
         moreInfoElt(container, groupe);
     });
     return container;
@@ -145,7 +144,7 @@ const mainSect = document.getElementById("SectionList");
 
 ajaxGet("http://145.239.32.254:8081/music/groupes", function (reponses) {
     var newApiElt = JSON.parse(reponses);
-    newApiElt.forEach(function(reponse, index){
+    newApiElt.forEach(function (reponse, index) {
         var newApiElt = createElts(reponse);
         mainSect.appendChild(newApiElt);
     })

@@ -13,10 +13,9 @@ function createElts(lien) {
     desBages.className = "Desc-Badge";
     container.appendChild(desBages);
 
-    
 
     const ppImageElt = document.createElement("img");
-    ppImageElt.setAttribute("src", "../data/Images/"+lien.nom.replace(/ /gi, "_")+".jpg");
+    ppImageElt.setAttribute("src", "../data/Images/" + lien.nom.replace(/ /gi, "_") + ".jpg");
     ppImageElt.setAttribute("alt", lien.nom);
     ppImageElt.className = "Groupe";
     desBages.appendChild(ppImageElt);
@@ -32,15 +31,12 @@ function createElts(lien) {
     desBages.appendChild(pElt);
 
 
-
     //Div Container
 
     //plus image href
     // plusContainerElt.href = "SOAD.html";
     // plusElt.src = lien.couverture;
 
-
-    
 
     return container;
 
@@ -50,7 +46,7 @@ const mainSect = document.getElementById("SectionList");
 
 ajaxGet("http://145.239.32.254:8081/music/groupes", function (reponses) {
     var newApiElt = JSON.parse(reponses);
-    newApiElt.forEach(function(reponse, index){
+    newApiElt.forEach(function (reponse, index) {
         var nomGroupe = reponse.nom;
         //if(nomGroupe!="System Of A Down") {return}
         let imageElt = ""
